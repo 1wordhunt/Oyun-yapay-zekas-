@@ -12,22 +12,18 @@
 
         .ai-container { width: 95%; max-width: 400px; height: 600px; background: var(--card); border-radius: 20px; display: flex; flex-direction: column; overflow: hidden; border: 1px solid #334155; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         
-        /* Header */
         .ai-header { padding: 15px; background: #1e293b; border-bottom: 1px solid #334155; display: flex; align-items: center; justify-content: space-between; }
         .ai-header h2 { font-size: 18px; color: var(--primary); }
 
-        /* Chat Area */
         #chat-content { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
         .msg { max-width: 80%; padding: 12px 16px; border-radius: 15px; font-size: 14px; line-height: 1.5; position: relative; }
         .user-msg { align-self: flex-end; background: var(--primary); color: white; border-bottom-right-radius: 2px; }
         .bot-msg { align-self: flex-start; background: #334155; color: #cbd5e1; border-bottom-left-radius: 2px; }
 
-        /* Question Buttons */
         .ai-footer { padding: 15px; background: #1e293b; display: flex; flex-wrap: wrap; gap: 8px; border-top: 1px solid #334155; }
         .q-btn { background: #334155; border: 1px solid #475569; color: #94a3b8; padding: 8px 12px; border-radius: 10px; font-size: 12px; cursor: pointer; transition: 0.3s; }
         .q-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
 
-        /* Scrollbar Styling */
         #chat-content::-webkit-scrollbar { width: 4px; }
         #chat-content::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
     </style>
@@ -41,7 +37,7 @@
     </div>
 
     <div id="chat-content">
-        <div class="msg bot-msg">Merhaba Burak! Word Hunt oyunu hakkında neyi merak ediyorsun? Aşağıdaki sorulardan birine tıkla sana yardımcı olayım.</div>
+        <div class="msg bot-msg">Merhaba! Word Hunt oyunu hakkında neyi merak ediyorsun? Aşağıdaki butonlara tıklayarak bilgi alabilirsin.</div>
     </div>
 
     <div class="ai-footer">
@@ -49,33 +45,26 @@
         <button class="q-btn" onclick="askAI('Rütbeler neler?')">Rütbeler neler?</button>
         <button class="q-btn" onclick="askAI('Canım biterse ne olur?')">Canım biterse ne olur?</button>
         <button class="q-btn" onclick="askAI('Rekorum nasıl kaydedilir?')">Rekorum nasıl kaydedilir?</button>
-        <button class="q-btn" onclick="askAI('Developer kim?')">Developer kim?</button>
     </div>
 </div>
 
 <script>
     const responses = {
-        "Nasıl oynanır?": "Ekranda çıkan Türkçe kelimenin İngilizce karşılığını yazıp 'GÖNDER' butonuna basmalısın. Her doğru cevap sana +50 puan ve +2 saniye kazandırır!",
-        "Rütbeler neler?": "0-200: Çaylak Bronz, 200-500: Demir Gri, 500-1000: Altın Sarı, 1000-2000: Elmas Mavi ve 2000+: Elit Kırmızı!",
-        "Canım biterse ne olur?": "Toplam 3 canın var. Her yanlış cevapta bir kalbin gider. Canların tamamen biterse oyun sona erer ve ana menüye dönersin.",
-        "Rekorum nasıl kaydedilir?": "Oyun bittiğinde aldığın puan eski rekorundan yüksekse, sistem otomatik olarak Firebase veritabanına yeni rekorunu işler.",
-        "Developer kim?": "Bu efsane oyunun geliştiricisi **Developer Burak**'tır! Kendisi tam bir kod canavarıdır. 😎"
+        "Nasıl oynanır?": "Ekranda çıkan Türkçe kelimenin İngilizce karşılığını yazıp onaylamalısın. Her doğru cevap puan ve ek süre kazandırır!",
+        "Rütbeler neler?": "0-200: Bronz, 200-500: Demir, 500-1000: Altın, 1000-2000: Elmas ve 2000+: Elit rütbesine ulaşırsın!",
+        "Canım biterse ne olur?": "Toplam 3 canın var. Canların biterse oyun sona erer ve ana menüye yönlendirilirsin.",
+        "Rekorum nasıl kaydedilir?": "Aldığın en yüksek puan otomatik olarak dünya sıralamasına kaydedilir."
     };
 
     function askAI(question) {
         const chat = document.getElementById('chat-content');
-
-        // Kullanıcı sorusunu ekle
         chat.innerHTML += `<div class="msg user-msg">${question}</div>`;
         
-        // AI Yazıyor efekti gibi ufak bir bekleme
         setTimeout(() => {
-            const reply = responses[question] || "Üzgünüm, bu konuda henüz eğitilmedim.";
+            const reply = responses[question];
             chat.innerHTML += `<div class="msg bot-msg">${reply}</div>`;
-            
-            // Otomatik aşağı kaydır
             chat.scrollTop = chat.scrollHeight;
-        }, 600);
+        }, 500);
     }
 </script>
 
